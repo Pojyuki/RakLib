@@ -37,7 +37,7 @@ final class SendReliabilityLayer{
 	 * Delay in seconds before an unacked packet is retransmitted.
 	 * TODO: Replace this with dynamic calculation based on roundtrip times (that's a complex task for another time)
 	 */
-	private const UNACKED_RETRANSMIT_DELAY = 2.0;
+	private const UNACKED_RETRANSMIT_DELAY = 0.3;
 
 	/** @var EncapsulatedPacket[] */
 	private array $sendQueue = [];
@@ -116,7 +116,7 @@ final class SendReliabilityLayer{
 		}
 	}
 
-	public function sendQueue() : void{
+	public function sendQueue(bool $forceFlush = false) : void{
 		if(count($this->sendQueue) > 0){
 			$this->sendDatagram($this->sendQueue);
 			$this->sendQueue = [];

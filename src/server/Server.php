@@ -45,7 +45,7 @@ use const SOCKET_ECONNRESET;
 
 class Server implements ServerInterface{
 
-	private const RAKLIB_TPS = 100;
+	private const RAKLIB_TPS = 200;
 	private const RAKLIB_TIME_PER_TICK = 1 / self::RAKLIB_TPS;
 	private const BLOCK_MESSAGE_SUPPRESSION_THRESHOLD = 2;
 	private const PACKET_ERROR_SUPPRESSION_THRESHOLD = 2;
@@ -62,7 +62,7 @@ class Server implements ServerInterface{
 
 	protected string $name = "";
 
-	protected int $packetLimit = 200;
+	protected int $packetLimit = 2000;
 
 	protected bool $shutdown = false;
 

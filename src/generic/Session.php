@@ -213,7 +213,7 @@ abstract class Session{
 		$this->recvLayer->update();
 		$this->sendLayer->update();
 
-		if($this->lastPingTime + 5 < $time){
+		if($this->lastPingTime + 0.5 < $time){
 			$this->sendPing();
 			$this->lastPingTime = $time;
 		}
@@ -235,7 +235,7 @@ abstract class Session{
 		$this->sendLayer->addEncapsulatedToQueue($packet, $immediate);
 	}
 
-	protected function sendPing(int $reliability = PacketReliability::UNRELIABLE) : void{
+	protected function sendPing(int $reliability = PacketReliability::RELIABLE) : void{
 		$this->queueConnectedPacket(ConnectedPing::create($this->getRakNetTimeMS()), $reliability, 0, true);
 	}
 
