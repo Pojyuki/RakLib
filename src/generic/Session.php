@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /*
  * This file is part of RakLib.
@@ -280,6 +280,13 @@ abstract class Session{
 				$this->lastPingMeasure = $currentTime - $sendPingTime;
 				$this->onPingMeasure($this->lastPingMeasure);
 			}
+		}
+		// Continuous ping-pong sampling: immediately re-ping after pong
+		// 50ms guard prevents flooding on sub-1ms RTT connections
+		$now = microtime(true);
+		if($now - $this->lastPingTime >= 0.05){
+			$this->sendPing();
+			$this->lastPingTime = $now;
 		}
 	}
 
